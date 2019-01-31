@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import ValidationComponent from './ValidationComponent/ValidationComponent';
+import CharComponent from './CharComponent/CharComponent';
 
 class App extends Component {
   state = {
@@ -8,7 +10,8 @@ class App extends Component {
       { id: 1, name: 'Jimmy', age: 23 },
       { id: 2, name: 'Ludi', age: 22 }
     ],
-    showPersons: false
+    showPersons: false,
+    text: ''
   };
 
   deletePersonHandler = index => {
@@ -34,6 +37,20 @@ class App extends Component {
     const doesShow = this.state.showPersons;
     this.setState({
       showPersons: !doesShow
+    });
+  };
+
+  textInputHandler = event => {
+    this.setState({
+      text: event.target.value
+    });
+  };
+
+  charClickHandler = i => {
+    const text = this.state.text.split('');
+    text.splice(i, 1);
+    this.setState({
+      text: text.join('')
     });
   };
 
@@ -67,6 +84,24 @@ class App extends Component {
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is working!</p>
+        <input
+          type="text"
+          onChange={this.textInputHandler}
+          value={this.state.text}
+        />
+        <p>Length of the text entered: {this.state.text.length}</p>
+        <ValidationComponent length={this.state.text.length} />
+        <div>
+          {this.state.text.split('').map((c, i) => {
+            return (
+              <CharComponent
+                char={c}
+                key={i}
+                click={() => this.charClickHandler(i)}
+              />
+            );
+          })}
+        </div>
         <button style={style} onClick={this.togglePersonsHandler}>
           Toggle Persons
         </button>
