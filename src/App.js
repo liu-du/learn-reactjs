@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -39,15 +39,6 @@ class App extends Component {
   };
 
   render() {
-    const style = {
-      backgroundColor: this.state.showPersons ? 'red' : 'green',
-      font: 'inherit',
-      border: '1px solid blue',
-      boxShadow: '0 2px 3px #ccc',
-      padding: '8px',
-      cursor: 'pointer'
-    };
-
     const persons = this.state.showPersons ? (
       <div>
         {this.state.persons.map((person, index) => {
@@ -65,10 +56,23 @@ class App extends Component {
     ) : null;
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
-        <p>This is working!</p>
-        <button style={style} onClick={this.togglePersonsHandler}>
+        <p
+          className={
+            this.state.persons.length <= 1
+              ? classes.red + ' ' + classes.bold
+              : this.state.persons.length <= 2
+              ? classes.bold
+              : null
+          }
+        >
+          This is working!
+        </p>
+        <button
+          className={this.state.showPersons ? classes.Red : null}
+          onClick={this.togglePersonsHandler}
+        >
           Toggle Persons
         </button>
         {persons}
