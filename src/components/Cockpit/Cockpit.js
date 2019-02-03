@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Cockpit.css';
+import Aux from '../../hoc/Aux';
 
 const cockpit = props => {
   const assignedClasses =
@@ -10,16 +11,20 @@ const cockpit = props => {
       : null;
 
   return (
-    <div className={classes.Cockpit}>
+    <Aux>
       <h1>Hi, I'm a React App</h1>
       <p className={assignedClasses}>This is working!</p>
       <button
-        className={props.showPersons ? classes.Red : null}
+        className={
+          props.showPersons
+            ? classes.Button + ' ' + classes.Red
+            : classes.Button
+        }
         onClick={props.clicked}
       >
         Toggle Persons
       </button>
-    </div>
+    </Aux>
   );
 };
 
