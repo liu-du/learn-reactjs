@@ -4,14 +4,40 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
-  state = {
-    persons: [
-      { id: 1, name: 'Jimmy', age: 23 },
-      { id: 2, name: 'Ludi', age: 22 },
-      { id: 3, name: 'LD', age: 23 }
-    ],
-    showPersons: false
-  };
+  constructor(props) {
+    super(props);
+    console.log('App.js inside constructor', props);
+    this.state = {
+      persons: [
+        { id: 1, name: 'Jimmy', age: 23 },
+        { id: 2, name: 'Ludi', age: 22 },
+        { id: 3, name: 'LD', age: 23 }
+      ],
+      showPersons: false
+    };
+    console.log('App.js inside constructor', this.state);
+  }
+
+  componentWillMount() {
+    console.log('App.js inside componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('App.js inside componentDidMount');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('App.js inside shoudComponentUpdate', nextProps, nextState);
+    return true;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('App.js inside componentWillUpdate', nextProps, nextState);
+  }
+
+  componentDidUpdate() {
+    console.log('App.js inside componentDidUpdate');
+  }
 
   deletePersonHandler = index => {
     const persons = [...this.state.persons];
@@ -40,16 +66,20 @@ class App extends Component {
   };
 
   render() {
+    console.log('App.js inside render');
     const persons = this.state.showPersons ? (
-      <Persons
-        persons={this.state.persons}
-        clicked={this.deletePersonHandler}
-        changed={this.nameChangedHandler}
-      />
+      <div>
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+        />
+      </div>
     ) : null;
 
     return (
       <div className={classes.App}>
+        <p>{this.props.title}</p>
         <Cockpit
           showPersons={this.state.showPersons}
           persons={this.state.persons}
