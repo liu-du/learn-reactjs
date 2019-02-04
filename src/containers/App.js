@@ -10,7 +10,7 @@ class App extends PureComponent {
     console.log('App.js inside constructor', props);
     this.state = {
       persons: [
-        { id: 1, name: 'Jimmy', age: 23 },
+        { id: 1, name: 'Jimmy', age: '23' },
         { id: 2, name: 'Ludi', age: 22 },
         { id: 3, name: 'LD', age: 23 }
       ],
