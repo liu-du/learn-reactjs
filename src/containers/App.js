@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import withClass from '../hoc/withClass';
 
 class App extends PureComponent {
   constructor(props) {
@@ -13,7 +14,8 @@ class App extends PureComponent {
         { id: 2, name: 'Ludi', age: 22 },
         { id: 3, name: 'LD', age: 23 }
       ],
-      showPersons: false
+      showPersons: false,
+      toggleClicked: 0
     };
     console.log('App.js inside constructor', this.state);
   }
@@ -25,15 +27,6 @@ class App extends PureComponent {
   componentDidMount() {
     console.log('App.js inside componentDidMount');
   }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('App.js inside shoudComponentUpdate', nextProps, nextState);
-  //   // return (
-  //   //   nextState.persons !== this.state.persons ||
-  //   //   nextState.showPersons !== this.state.showPersons
-  //   // );
-  //   return true;
-  // }
 
   componentWillUpdate(nextProps, nextState) {
     console.log('App.js inside componentWillUpdate', nextProps, nextState);
@@ -64,8 +57,11 @@ class App extends PureComponent {
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({
-      showPersons: !doesShow
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1
+      };
     });
   };
 
@@ -82,7 +78,7 @@ class App extends PureComponent {
     ) : null;
 
     return (
-      <div className={classes.App}>
+      <>
         <p>{this.props.title}</p>
         <button onClick={() => this.setState({ showPersons: true })}>
           Show persons
@@ -93,9 +89,9 @@ class App extends PureComponent {
           clicked={this.togglePersonsHandler}
         />
         {persons}
-      </div>
+      </>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
