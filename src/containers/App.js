@@ -35,6 +35,15 @@ class App extends PureComponent {
     console.log('App.js inside componentWillUpdate', nextProps, nextState);
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log('App.js inside getDerivedStateFromProps', nextProps, prevState);
+    return prevState;
+  }
+
+  getSnapshotBeforeUpdate() {
+    console.log('App.js inside getSnapshotBeforeUpdate');
+  }
+
   componentDidUpdate() {
     console.log('App.js inside componentDidUpdate');
   }
